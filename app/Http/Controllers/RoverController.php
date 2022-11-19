@@ -57,12 +57,18 @@ class RoverController extends Controller
         $newPosition = new NewPosition(); 
 
         foreach($commands as $command){
-          
+            if($command ==='F' || $command ==='L' || $command ==='R'){
                 if(!$newPosition->NewPosition($rover, $command, $request)){
                     return view('mart')
                     ->with('rover' ,$rover)
                     ->with('error', "Ups, cuidado no podemos seguir avanzando!");
                 }
+            }else{
+                return view('mart')
+                ->with('rover' ,$rover)
+                ->with('error', "Ups, no entiendo el comando");
+            }
+               
         }
 
         return view('mart')
