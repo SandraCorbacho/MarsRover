@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoverController;
+
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +16,7 @@ use App\Http\Controllers\RoverController;
 */
 
 Route::get('/', function () {
+    Session::forget('obstacles');
     return view('welcome');
 });
 
