@@ -8,14 +8,13 @@ use Session;
 class NewPosition
 {
 
-public function NewPosition( Rover $rover, $command, $request) {
+public function NewPosition( Rover $rover, $command) {
         
         $direction = new Direction($rover->direction);
         if($command !== "F"){
             $newdirection = $direction->changeDirection($rover->direction, $command);
             $rover->setDirection($newdirection);
         }
-       
             switch ($rover->direction){
                 case "N":
                     $positionY = -1;
@@ -30,7 +29,8 @@ public function NewPosition( Rover $rover, $command, $request) {
                     $positionX = -1;
                     break;
             }
-            if(isset($positionY) && ($rover->getY() + $positionY) >0){
+            
+            if(isset($positionY) && ($rover->getY() + $positionY) >=0 && ($rover->getY() + $positionY) <=200){
                 if($this->itsFreeObstacles($rover->getX(), $rover->getY() + $positionY)){
                     $rover->setY($rover->getY() + $positionY);
                     return true;
@@ -38,7 +38,7 @@ public function NewPosition( Rover $rover, $command, $request) {
                 };
                 return false;
 
-            }else if(isset($positionX) && ($rover->getX() + $positionX) >=0){
+            }else if(isset($positionX) && ($rover->getX() + $positionX) >=0 && ($rover->getX() + $positionX) <=200){
                 if($this->itsFreeObstacles($rover->getX() + $positionX, $rover->getY())){
                     $rover->setX($rover->getX() + $positionX);
                     return true;
@@ -51,13 +51,15 @@ public function NewPosition( Rover $rover, $command, $request) {
     private function itsFreeObstacles($newPositionX, $newPositionY)
     {
         $obstacles = Session::get('obstacles');
-
-        foreach($obstacles as $obstacle){
-            if($obstacle->getY() === $newPositionY && $obstacle->getX() === $newPositionX){
-                $obstacle->detected = true;
-                Session::put('obstacles',$obstacles);
-                return false;
+        if(isset($obstacles)){
+            foreach($obstacles as $obstacle){
+                if($obstacle->getY() === $newPositionY && $obstacle->getX() === $newPositionX){
+                    $obstacle->detected = true;
+                    Session::put('obstacles',$obstacles);
+                    return false;
+                }
             }
+            return true;
         }
         return true;
     }
