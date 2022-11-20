@@ -66,7 +66,7 @@ class RoverController extends Controller
             }else{
                 return view('mart')
                 ->with('rover' ,$rover)
-                ->with('error', "Ups, no entiendo el comando");
+                ->with('error', "Ups, no entiendo el comando " . $command);
             }
                
         }

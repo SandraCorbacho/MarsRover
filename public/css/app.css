@@ -95,7 +95,8 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0px;
     width: 10px;
     height: 10px;
-    animation: 5s;
+    margin-left: -5px;
+    margin-top: -5px;
 }
 
 .x{
@@ -114,6 +115,8 @@ input[type=number]::-webkit-outer-spin-button {
     width: 10px;
     height: 10px;
     position: absolute;
+    margin-left: -5px;
+    margin-top: -5px;
 }
 .obstacles{
     padding: 15px;
