@@ -7,14 +7,18 @@ use App\Models\Rover\Obstacle;
 
 class NewObstacles
 {
-
-    public function NewObstacles(Rover $rover) {
+    /**
+     * @param Rover $rover
+     * @return Obstacle[]
+     */
+    // 
+    public function NewObstacles(Rover $rover): array {
         
-        $numObstacles = 5;
+        $numObstacles = config('global.num_obstacles');
         $obstacles = [];
         for($i=0; $i <= $numObstacles; $i++ ){
-            $x = mt_rand(0,190);
-            $y = mt_rand(0,190);
+            $x = mt_rand(0,config('global.world_size'));
+            $y = mt_rand(0,config('global.world_size'));
             $obstacle = new Obstacle($x,$y);
             if($rover->getX() == $obstacle->getX() && $rover->getY() == $obstacle->getY()){
                 $i--;

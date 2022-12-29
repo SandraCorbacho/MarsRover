@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Rover extends Model
 {
     use HasFactory;
+     private $x;
+     private $y;
+     private $direction;
 
-    public function __construct($x = 100, $y = 100, $direction = null) 
+    public function __construct(int $x = 100, int $y = 100, string $direction = null) 
     {
          $this->x = $x;
          $this->y = $y;
@@ -17,32 +20,31 @@ class Rover extends Model
     }
 
     
-
-    public function setDirection($Direction)
+    public function setDirection(string $direction)
     {
-         $this->direction = $Direction;
+         $this->direction = $direction;
     }
  
-    public function getDirection()
+    public function getDirection(): string
     {
          return $this->direction;
     }
 
-    public function setX($x)
+    public function setX(int $x)
     {
-         $this->x = (int) $x;
+         $this->x = $x;
     }
  
-    public function getX()
+    public function getX(): int
     {
          return $this->x;
     }
-    public function setY($y)
+    public function setY(int $y)
     {
-         $this->y = (int) $y;
+         $this->y = $y;
     }
  
-    public function getY()
+    public function getY(): int
     {
          return $this->y;
     }

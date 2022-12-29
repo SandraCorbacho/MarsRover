@@ -35,7 +35,9 @@
                             <input type="text" name = "Command" value="{{ old('command') }}">
                         </div>
                         <div class='direction' >
-                            <input type="hidden" name= 'rover' value = "{{$rover}}">
+                            <input type="hidden" name= 'currentDirection' value = "{{$rover->getDirection()}}">
+                            <input type="hidden" name= 'currentX' value = "{{$rover->getX()}}">
+                            <input type="hidden" name= 'currentY' value = "{{$rover->getY()}}">
                         </div>
                         <div class='submit'>
                             <input type="submit" value='Mover'>

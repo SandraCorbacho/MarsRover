@@ -46,12 +46,10 @@ class RoverController extends Controller
     public function move(Request $request)
     {
         $data = $request->all();
-        $currentPosition = json_decode($data['rover']);
         $rover = new Rover ();
-
-        $rover ->setX($currentPosition->x);
-        $rover ->setY($currentPosition->y);
-        $rover ->setDirection($currentPosition->direction);
+        $rover ->setX($data['currentX']);
+        $rover ->setY($data['currentY']);
+        $rover ->setDirection($data['currentDirection']);
 
         $commands = str_split($data['Command']);
         $newPosition = new NewPosition(); 

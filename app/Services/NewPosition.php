@@ -8,14 +8,13 @@ use Session;
 class NewPosition
 {
 
-public function NewPosition( Rover $rover, $command) {
-        
-        $direction = new Direction($rover->direction);
+public function NewPosition( Rover $rover, $command):bool {
+        $direction = new Direction($rover->getDirection());
         if($command !== "F"){
-            $newdirection = $direction->changeDirection($rover->direction, $command);
+            $newdirection = $direction->changeDirection($rover->getDirection(), $command);
             $rover->setDirection($newdirection);
         }
-            switch ($rover->direction){
+            switch ($rover->getDirection()){
                 case "N":
                     $positionY = -1;
                     break;
@@ -36,19 +35,16 @@ public function NewPosition( Rover $rover, $command) {
                     return true;
 
                 };
-                return false;
-
             }else if(isset($positionX) && ($rover->getX() + $positionX) >=0 && ($rover->getX() + $positionX) <=200){
                 if($this->itsFreeObstacles($rover->getX() + $positionX, $rover->getY())){
                     $rover->setX($rover->getX() + $positionX);
                     return true;
-
                 }
-                return false;
             }
+        return false;
     }
 
-    private function itsFreeObstacles($newPositionX, $newPositionY)
+    private function itsFreeObstacles(int $newPositionX, int $newPositionY): bool
     {
         $obstacles = Session::get('obstacles');
         if(isset($obstacles)){
